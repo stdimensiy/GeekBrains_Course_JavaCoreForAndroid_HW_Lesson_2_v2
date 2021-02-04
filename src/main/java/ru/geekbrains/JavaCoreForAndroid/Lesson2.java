@@ -25,6 +25,12 @@ public class Lesson2 {
         System.out.println("            *** Массив обработан методом inversionArray() - задача выполнена.");
         System.out.println();
 
+        //Задание №2
+        System.out.println("Задание №2 с помощь цикла создан массив из 8 элементов, первый элемент имеет значение 0, шаг 3");
+        printArrLine(getArithmeticProgression(8,3,0));
+        System.out.println("            *** Массив обработан методом getArithmeticProgression(int length, int increment, int firstElem) - задача выполнена.");
+        System.out.println();
+
     }
 
     // Дополнительный метод - выводит элементы массива тип int в форматированную строку (для удобства )
@@ -49,6 +55,17 @@ public class Lesson2 {
     public static int[] inversionArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = arr[i] == 1 ? 0 : 1;
+        }
+        return arr;
+    }
+
+    // Задание №2
+    public static int[] getArithmeticProgression(int length, int increment, int firstElem) {
+        int[] arr;
+        arr = new int[length];
+        arr[0] = firstElem;
+        for (int i = 1; i < arr.length; i++){
+            arr[i] = arr[i - 1] + increment;
         }
         return arr;
     }
