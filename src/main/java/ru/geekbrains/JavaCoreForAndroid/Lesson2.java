@@ -16,7 +16,7 @@ public class Lesson2 {
         // Переменные
         int[] originIntArray = {0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0};
         int[] originRandIntArray = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-        int[][] UnitMatrix;
+
 
         //Задание №1 (второй способ решения задачи закомментирован)
         System.out.println("Задание №1 (1 строка оригинальный массив, 2 строка инвертированный массив (для наглядности)");
@@ -42,11 +42,12 @@ public class Lesson2 {
         System.out.println();
 
         //Задание №4
+        int[][] unitMatrix;
         System.out.println("Задание №4 создаем квадратный двумерный массив и заполняем его по диагональные элементы значением 1");
         System.out.println("наглядно представление сгенерированного массива:");
-        UnitMatrix = getUnitMatrixExtVer(8);
-        for (int[] unitMatrix : UnitMatrix) {
-            printArrLine(unitMatrix);
+        unitMatrix = getUnitMatrixExtVer(8);
+        for (int[] unitMatrixLine : unitMatrix) {
+            printArrLine(unitMatrixLine);
         }
         System.out.println("            *** Массив обработан методом getUnitMatrix() с параметром равным 8 - задача выполнена.");
         System.out.println();
@@ -54,9 +55,9 @@ public class Lesson2 {
         //Задание №4.1 более широкий взгляд на задачу (это на случай если я ошибся)
         System.out.println("Задание №4.1 расширенный вариант решения (заполняется побочная диагональ)");
         System.out.println("наглядно представление сгенерированного массива:");
-        UnitMatrix = getUnitMatrixExtVer(8, 0, 1);
-        for (int[] unitMatrix : UnitMatrix) {
-            printArrLine(unitMatrix);
+        unitMatrix = getUnitMatrixExtVer(8, 0, 1);
+        for (int[] unitMatrixLine : unitMatrix) {
+            printArrLine(unitMatrixLine);
         }
         System.out.println("            *** Массив обработан расширенной версией метода getUnitMatrixExtVer(8, 0, 1) - задача выполнена.");
         System.out.println();
@@ -64,9 +65,9 @@ public class Lesson2 {
         //Задание №4.1(бис) более широкий взгляд на задачу (это на случай если я ошибся)
         System.out.println("Задание №4.1(бис) расширенный вариант решения (заполняются все диагонали)");
         System.out.println("наглядно представление сгенерированного массива:");
-        UnitMatrix = getUnitMatrixExtVer(8, 1, 1);
-        for (int[] unitMatrix : UnitMatrix) {
-            printArrLine(unitMatrix);
+        unitMatrix = getUnitMatrixExtVer(8, 1, 1);
+        for (int[] unitMatrixLine : unitMatrix) {
+            printArrLine(unitMatrixLine);
         }
         System.out.println("            *** Массив обработан расширенной версией метода getUnitMatrixExtVer(8, 1, 1) - задача выполнена.");
         System.out.println();
@@ -93,6 +94,23 @@ public class Lesson2 {
         printArrLine(originIntArray);
         System.out.println("В переданном массиве, место в котором суммы элементов правой и левой частиравны: " + (isPlaceSumLREqual(originIntArray) ? "ПРИСУТСТВУЕТ!" : "Отсутствует"));
         System.out.println("            *** Массив обработан методами getSum() и  isPlaceSumLREqual() - все работает задача выполнена.");
+        System.out.println();
+
+        //Задание №7
+        int[] intArrTest;
+        System.out.println("Задание №7  реализация метода осуществляющего смещение элементов массива на заданное число позиций ");
+        System.out.println("            количество позиций смещения - число (может быть положительным или отрицательным)");
+        System.out.println("            Попытка №1 смещение влево (передаваемый параметр n=2)");
+        intArrTest=getArithmeticProgression(10,1,0); // создаю массив арифм. последовательности с шагом 1
+        printArrLine(intArrTest);                                           // вывожу оригинальный массив
+        printArrLine(getArrayWithShift(intArrTest,2));                 // вывожу результирующий массив (смещенный)
+        System.out.println("            !!! все работает массив сместился вправо на 2 элемента");
+        System.out.println("            Попытка №2 смещение влево (передаваемый параметр n=-3)");
+        intArrTest=getArithmeticProgression(10,1,0); // создаю массив арифм. последовательности с шагом 1 заново
+        printArrLine(intArrTest);
+        printArrLine(getArrayWithShift(intArrTest,-3));                 // вывожу результирующий массив (смещенный)
+        System.out.println("            !!! все работает массив сместился влево на 3 элемента");
+        System.out.println("            *** Массив обработан методом getArrayWithShift() - все работает задача выполнена.");
         System.out.println();
 
     }
@@ -188,8 +206,8 @@ public class Lesson2 {
     /  равна сумме элементов справа от границы.*/
     public static boolean isPlaceSumLREqual(int[] arr) {
         int sum = getSum(arr);      // Логично предположить, что только если сумма четная, тогда есть граница, (эт элементарно)
-                                    // при такой проверке метод адекватно найдет границу и в массиве с нулевым значением суммы и
-                                    // отсеет массив с недостаточным количеством элементов
+        // при такой проверке метод адекватно найдет границу и в массиве с нулевым значением суммы и
+        // отсеет массив с недостаточным количеством элементов
         if (sum % 2 == 0 && arr.length > 1) {
             int kontrSum = 0;
             for (int o : arr) {
@@ -198,6 +216,30 @@ public class Lesson2 {
             }
         }
         return false;
+    }
+
+    /* Задание №7 метод реализующий смещение элементов массива влево или вправо циклически
+    / без использования дополнительных пакетов и временных массивов
+    / смещение осуществляется при shift > 0 вправо при shift < 0 влево */
+    public static int[] getArrayWithShift(int[] arr, int shift) {
+        if (shift > 0) {
+            for (int s = 1; s <= shift; s++) {
+                int elemshift = arr[arr.length - 1];
+                for (int i = arr.length - 2; i >= 0; i--) {
+                    arr[i + 1] = arr[i];
+                }
+                arr[0] = elemshift;
+            }
+        } else if (shift < 0) {
+            for (int s = shift; s <= -1; s++) {
+                int elemshift = arr[0];
+                for (int i = 1; i < arr.length; i++) {
+                    arr[i - 1] = arr[i];
+                }
+                arr[arr.length - 1] = elemshift;
+            }
+        }
+        return arr;
     }
 
 
