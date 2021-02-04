@@ -15,6 +15,7 @@ public class Lesson2 {
     public static void main(String[] args) {
         // Переменные
         int[] originIntArray = {0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0};
+        int[] originRandIntArray = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
 
         //Задание №1 (второй способ решения задачи закомментирован)
         System.out.println("Задание №1 (1 строка оригинальный массив, 2 строка инвертированный массив (для наглядности)");
@@ -31,13 +32,21 @@ public class Lesson2 {
         System.out.println("            *** Массив обработан методом getArithmeticProgression(int length, int increment, int firstElem) - задача выполнена.");
         System.out.println();
 
+        //Задание №3
+        System.out.println("Задание №3 оригинальный массив в цикле обрабатывается и все значения элементов меньше заданного удваиваются");
+        System.out.println("            для тестирования принят массив (1 строка) пороговое значение 6. Результирующий массив строка 2 (для наглядности)");
+        printArrLine(originRandIntArray);
+        printArrLine(getDoublingIfLess(originRandIntArray,6));
+        System.out.println("            *** Массив обработан методом getArithmeticProgression(int length, int increment, int firstElem) - задача выполнена.");
+        System.out.println();
+
     }
 
     // Дополнительный метод - выводит элементы массива тип int в форматированную строку (для удобства )
     // Самоподготовка (СамПо) вне занятия
     public static void printArrLine(int[] a) {
         for (int elem : a) {
-            System.out.print(elem + " ");
+            System.out.print(elem + "\t");
         }
         System.out.println();
     }
@@ -66,6 +75,14 @@ public class Lesson2 {
         arr[0] = firstElem;
         for (int i = 1; i < arr.length; i++){
             arr[i] = arr[i - 1] + increment;
+        }
+        return arr;
+    }
+
+    // Задание №3
+    public static int[] getDoublingIfLess(int[] arr, int min) {
+        for (int i = 0; i < arr.length; i++){
+            arr[i] = arr[i] < min ? arr[i] <<= 1 : arr[i];
         }
         return arr;
     }
