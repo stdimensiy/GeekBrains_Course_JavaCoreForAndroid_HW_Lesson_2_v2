@@ -6,7 +6,7 @@ package ru.geekbrains.JavaCoreForAndroid;
  *
  * @Author Student Dmitry Veremeenko aka StDimensiy
  * Group 24.12.2020
- * <p>
+ *
  * HomeWork for lesson2
  * Created 05.02.2021
  * v2.0
@@ -16,6 +16,7 @@ public class Lesson2 {
         // Переменные
         int[] originIntArray = {0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0};
         int[] originRandIntArray = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
+        int[][] UnitMatrix;
 
         //Задание №1 (второй способ решения задачи закомментирован)
         System.out.println("Задание №1 (1 строка оригинальный массив, 2 строка инвертированный массив (для наглядности)");
@@ -28,7 +29,7 @@ public class Lesson2 {
 
         //Задание №2
         System.out.println("Задание №2 с помощь цикла создан массив из 8 элементов, первый элемент имеет значение 0, шаг 3");
-        printArrLine(getArithmeticProgression(8,3,0));
+        printArrLine(getArithmeticProgression(8, 3, 0));
         System.out.println("            *** Массив обработан методом getArithmeticProgression(int length, int increment, int firstElem) - задача выполнена.");
         System.out.println();
 
@@ -36,8 +37,38 @@ public class Lesson2 {
         System.out.println("Задание №3 оригинальный массив в цикле обрабатывается и все значения элементов меньше заданного удваиваются");
         System.out.println("            для тестирования принят массив (1 строка) пороговое значение 6. Результирующий массив строка 2 (для наглядности)");
         printArrLine(originRandIntArray);
-        printArrLine(getDoublingIfLess(originRandIntArray,6));
+        printArrLine(getDoublingIfLess(originRandIntArray, 6));
         System.out.println("            *** Массив обработан методом getArithmeticProgression(int length, int increment, int firstElem) - задача выполнена.");
+        System.out.println();
+
+        //Задание №4
+        System.out.println("Задание №4 создаем квадратный двумерный массив и заполняем его по диагональные элементы значением 1");
+        System.out.println("наглядно представление сгенерированного массива:");
+        UnitMatrix = getUnitMatrixExtVer(8);
+        for (int[] unitMatrix : UnitMatrix) {
+            printArrLine(unitMatrix);
+        }
+        System.out.println("            *** Массив обработан методом getUnitMatrix() с параметром равным 8 - задача выполнена.");
+        System.out.println();
+
+        //Задание №4.1 более широкий взгляд на задачу (это на случай если я ошибся)
+        System.out.println("Задание №4.1 расширенный вариант решения (заполняется побочная диагональ)");
+        System.out.println("наглядно представление сгенерированного массива:");
+        UnitMatrix = getUnitMatrixExtVer(8, 0, 1);
+        for (int[] unitMatrix : UnitMatrix) {
+            printArrLine(unitMatrix);
+        }
+        System.out.println("            *** Массив обработан расширенной версией метода getUnitMatrixExtVer(8, 0, 1) - задача выполнена.");
+        System.out.println();
+
+        //Задание №4.1(бис) более широкий взгляд на задачу (это на случай если я ошибся)
+        System.out.println("Задание №4.1(бис) расширенный вариант решения (заполняются все диагонали)");
+        System.out.println("наглядно представление сгенерированного массива:");
+        UnitMatrix = getUnitMatrixExtVer(8, 1, 1);
+        for (int[] unitMatrix : UnitMatrix) {
+            printArrLine(unitMatrix);
+        }
+        System.out.println("            *** Массив обработан расширенной версией метода getUnitMatrixExtVer(8, 1, 1) - задача выполнена.");
         System.out.println();
 
     }
@@ -73,7 +104,7 @@ public class Lesson2 {
         int[] arr;
         arr = new int[length];
         arr[0] = firstElem;
-        for (int i = 1; i < arr.length; i++){
+        for (int i = 1; i < arr.length; i++) {
             arr[i] = arr[i - 1] + increment;
         }
         return arr;
@@ -81,8 +112,29 @@ public class Lesson2 {
 
     // Задание №3
     public static int[] getDoublingIfLess(int[] arr, int min) {
-        for (int i = 0; i < arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             arr[i] = arr[i] < min ? arr[i] <<= 1 : arr[i];
+        }
+        return arr;
+    }
+
+    // Задание №4
+    public static int[][] getUnitMatrixExtVer(int length, int elemMainDiag, int elemSideDiag) {
+        int[][] arr;
+        arr = new int[length][length];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i][i] = elemMainDiag;
+            arr[i][(length - 1) - i] = elemSideDiag;
+        }
+        return arr;
+    }
+
+    // Задание №4 - перегруженный метод, для создания единичной матрицы, просто.
+    public static int[][] getUnitMatrixExtVer(int length) {
+        int[][] arr;
+        arr = new int[length][length];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i][i] = 1;
         }
         return arr;
     }
