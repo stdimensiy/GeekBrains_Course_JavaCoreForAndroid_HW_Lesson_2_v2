@@ -6,7 +6,7 @@ package ru.geekbrains.JavaCoreForAndroid;
  *
  * @Author Student Dmitry Veremeenko aka StDimensiy
  * Group 24.12.2020
- *
+ * <p>
  * HomeWork for lesson2
  * Created 05.02.2021
  * v2.0
@@ -80,6 +80,21 @@ public class Lesson2 {
         System.out.println("            *** Массив обработан методами getMax() и getMin() - задача выполнена.");
         System.out.println();
 
+        //Задание №6
+        System.out.println("Задание №6  определение существования границы между элементами массива справа и слева от которой сумма ");
+        System.out.println("            элементов массива будет одинакова (таких границ в массивах может не быть вовсе, а может быть и несколько).");
+        System.out.println("            Попытка №1 Передаваемый массив для тестирования метода isPlaceSumLREqual(): ");
+        printArrLine(originRandIntArray);
+        // System.out.println("Сумма элементов массива" + getSum(originRandIntArray)); // метод создан дополнительно как сервисный он нужен для первичного анализа
+        // формируем строку ответа сразу в выводе в консоль при помощи тернарного оператора (мне понравилось им пользоваться)
+        System.out.println("В переданном массиве, место в котором суммы элементов правой и левой части равны: " + (isPlaceSumLREqual(originRandIntArray) ? "ПРИСУТСТВУЕТ!" : "Отсутствует"));
+        // System.out.println("Сумма элементов массива" + getSum(originIntArray));
+        System.out.println("            Попытка №2 Передаваемый массив для тестирования метода isPlaceSumLREqual(): ");
+        printArrLine(originIntArray);
+        System.out.println("В переданном массиве, место в котором суммы элементов правой и левой частиравны: " + (isPlaceSumLREqual(originIntArray) ? "ПРИСУТСТВУЕТ!" : "Отсутствует"));
+        System.out.println("            *** Массив обработан методами getSum() и  isPlaceSumLREqual() - все работает задача выполнена.");
+        System.out.println();
+
     }
 
     // Дополнительный метод - выводит элементы массива тип int в форматированную строку (для удобства )
@@ -98,6 +113,13 @@ public class Lesson2 {
             System.out.print(elem + " ");
         }
         System.out.println();
+    }
+
+    // Дополнительный метод - вычисляет сумму элементов массива (нужен в задании №6)
+    public static int getSum(int[] arr) {
+        int sum = arr[0];
+        for (int i = 1; i < arr.length; i++) sum += arr[i];
+        return sum;
     }
 
     // Задание №1 - метод инвертирует элементы массива 1 в 0 и наоборот (ели не 0, тогда тоже переведет в 0)
@@ -154,11 +176,29 @@ public class Lesson2 {
         for (int i = 1; i < arr.length; i++) if (arr[i] > max) max = arr[i];
         return max;
     }
+
     // Задание №5.2 метод для нахождения минимального значения из элемента массива
     public static int getMin(int[] arr) {
         int min = arr[0];
         for (int i = 1; i < arr.length; i++) if (arr[i] < min) min = arr[i];
         return min;
     }
+
+    /* Задание №6 метод для нахождения в массиве границы, где сумма элементов слева от границы
+    /  равна сумме элементов справа от границы.*/
+    public static boolean isPlaceSumLREqual(int[] arr) {
+        int sum = getSum(arr);      // Логично предположить, что только если сумма четная, тогда есть граница, (эт элементарно)
+                                    // при такой проверке метод адекватно найдет границу и в массиве с нулевым значением суммы и
+                                    // отсеет массив с недостаточным количеством элементов
+        if (sum % 2 == 0 && arr.length > 1) {
+            int kontrSum = 0;
+            for (int o : arr) {
+                kontrSum += o;
+                if (kontrSum == sum) return true;
+            }
+        }
+        return false;
+    }
+
 
 }
