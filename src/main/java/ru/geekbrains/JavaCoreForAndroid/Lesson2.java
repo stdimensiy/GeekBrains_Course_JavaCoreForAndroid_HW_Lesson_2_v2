@@ -71,6 +71,15 @@ public class Lesson2 {
         System.out.println("            *** Массив обработан расширенной версией метода getUnitMatrixExtVer(8, 1, 1) - задача выполнена.");
         System.out.println();
 
+        //Задание №5
+        System.out.println("Задание №5 нахождение максимального и минимального значения элемента массива");
+        System.out.println("           массив передаваемый для обработки в методы getMax() и getMin ");
+        printArrLine(originRandIntArray);
+        System.out.println("Максимальное значение элемента массива: " + getMax(originRandIntArray));
+        System.out.println("Минимальное значение элемента массива: " + getMin(originRandIntArray));
+        System.out.println("            *** Массив обработан методами getMax() и getMin() - задача выполнена.");
+        System.out.println();
+
     }
 
     // Дополнительный метод - выводит элементы массива тип int в форматированную строку (для удобства )
@@ -137,6 +146,19 @@ public class Lesson2 {
             arr[i][i] = 1;
         }
         return arr;
+    }
+
+    // Задание №5.1 метод для нахождения максимального значения из элементов массива
+    public static int getMax(int[] arr) {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) if (arr[i] > max) max = arr[i];
+        return max;
+    }
+    // Задание №5.2 метод для нахождения минимального значения из элемента массива
+    public static int getMin(int[] arr) {
+        int min = arr[0];
+        for (int i = 1; i < arr.length; i++) if (arr[i] < min) min = arr[i];
+        return min;
     }
 
 }
